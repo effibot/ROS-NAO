@@ -2,8 +2,8 @@
   "name": "docker-base",
   "dockerComposeFile": ["docker-compose.yml"],
   // Only start this service
-  "service": "cuda16",
-  "runServices": ["cuda16"],
+  "service": "rosnao",
+  "runServices": ["rosnao"],
   // Configure the container's IDE
   "customizations": {
     "vscode": {
