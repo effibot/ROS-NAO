@@ -13,7 +13,6 @@ services:
       - DEFAULT_SHELL
       - DISPLAY
       - QT_X11_NO_MITSHM
-      - NVIDIA_DRIVER_CAPABILITIES
     image: ${IMAGE_NAME}
     build:
       context: .

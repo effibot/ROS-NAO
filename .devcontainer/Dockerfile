@@ -30,9 +30,9 @@ RUN sudo apt autoremove -y && sudo apt clean -y && \
     echo "source /opt/ros/kinetic/setup.zsh" >> ~/.zshrc
 
 # add additional ROS-python packages then initialize rosdep
-RUN mamba install -n nao -y rosdep rosinstall rosinstall_generator wstool catkin_tools && \
+RUN mamba install -n nao -y defusedxml rosdep rosinstall rosinstall_generator wstool catkin_tools && \
     mamba update -n nao --all -y && mamba clean --all --yes && \
-    sudo rosdep init && rosdep update
+    sudo rosdep init && rosdep update --include-eol-distros
 
 # Add needed folder to environment variables
 ENV NAOQI=${HOME}/naoqi
@@ -64,10 +64,7 @@ ENV ROS_DISTRO=kinetic
 ENV ROS_PYTHON_VERSION=2.7
 
 RUN mkdir -p ~/catkin_ws/src && cd ~/catkin_ws/src && \
-    git clone https://github.com/ros-naoqi/naoqi_driver.git
-
-# this have to be done from terminal
-
-#RUN cd ~/catkin_ws/src && rosdep install -i -y --from-paths ./naoqi_driver --rosdistro=${ROS_DISTRO}  --os=ubuntu:xenial
-
-#RUN cd ~/catkin_ws && catkin_make
+    git clone https://github.com/ros-naoqi/naoqi_driver.git && \
+    cd ~/catkin_ws/src && rosdep install -i -y --from-paths ./naoqi_driver && \
+    . /opt/ros/kinetic/setup.sh && \
+    cd ~/catkin_ws && catkin_make
